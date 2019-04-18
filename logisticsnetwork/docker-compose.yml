@@ -1,0 +1,29 @@
+version: '2'
+
+services:
+  logistics-api:
+    build: .
+    command: su -c "python manage.py runserver 0.0.0.0:8000"
+    restart: always
+    ports:
+       - "8000:8000"
+    depends_on:
+       - db
+    links:
+      - db
+    volumes:
+      - .:/logisticsnetwork
+
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=logistics
+    volumes:
+      - database:/var/lib/postgresql
+
+volumes:
+  database:
