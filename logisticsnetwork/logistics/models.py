@@ -1,4 +1,3 @@
-from decimal import Decimal
 from localflavor.br import br_states
 
 from django.contrib.postgres.fields import JSONField
@@ -23,22 +22,3 @@ class LogisticsNet(models.Model):
 
     class Meta:
         verbose_name = 'Logistic Network'
-
-
-class UserSearch(models.Model):
-    """ Model to represent user searches """
-
-    source = models.CharField(max_length=20, verbose_name='source')
-    destination = models.CharField(max_length=20, verbose_name='destination')
-    autonomy = models.DecimalField(
-        max_digits=4, decimal_places=2, default=Decimal(), verbose_name='autonomy'
-    )
-    fuel_price = models.DecimalField(
-        max_digits=4, decimal_places=2, default=Decimal(), verbose_name='fuel_price'
-    )
-
-    def __str__(self):
-        return f'{self.pk} - From: {self.source} To {self.destination}'
-
-    class Meta:
-        verbose_name = 'User'
