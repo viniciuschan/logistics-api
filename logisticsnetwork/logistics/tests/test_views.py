@@ -40,8 +40,8 @@ class LogisticNetViewSetTestCase(APITransactionTestCase):
 
         response = self.client.post(endpoint_create, self.payload)
 
-        # I am checked my ViewSet create status code because
-        # APIClient is returning status_code for POST method
+        # I checked my ViewSet creating status_code because
+        # APIClient is returning status=200 for POST method
         self.assertEqual(
             response.json().get('status_code'), status.HTTP_201_CREATED
         )
@@ -81,7 +81,6 @@ class LogisticNetViewSetTestCase(APITransactionTestCase):
             'name': 'GO',
             'path_data': self.path_data
         }
-
         response = self.client.patch(endpoint_patch, payload)
 
         self.assertEqual(LogisticsNet.objects.count(), 1)

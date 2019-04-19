@@ -4,8 +4,8 @@ from decimal import Decimal
 from rest_framework import status
 from rest_framework.test import APITransactionTestCase
 
-from logistics.models import LogisticsNet, UserSearch
-from .factories import LogisticsNetFactory, UserSearchFactory
+from logistics.models import LogisticsNet
+from .factories import LogisticsNetFactory
 
 
 class LogisticNetModelTestCase(APITransactionTestCase):
@@ -46,23 +46,3 @@ class LogisticNetModelTestCase(APITransactionTestCase):
             state='SP'
         )
         self.assertIsInstance(log_net, LogisticsNet)
-
-
-class UserSearchModelTestCase(APITransactionTestCase):
-
-    def test_str(self):
-        search = UserSearchFactory.create(
-            source='X', destination='Y',
-        )
-        object_text = f'{search.pk} - From: {search.source} To {search.destination}'
-
-        self.assertEqual(str(search), object_text)
-
-    def test_create(self):
-        search = UserSearch(
-            source='A',
-            destination='W',
-            autonomy=Decimal(15),
-            fuel_price=Decimal(2.5)
-        )
-        self.assertIsInstance(search, UserSearch)
