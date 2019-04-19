@@ -2,7 +2,7 @@ from decimal import Decimal
 from factory import SubFactory
 from factory.django import DjangoModelFactory
 
-from logistics.models import LogisticsNet, UserSearch
+from logistics.models import LogisticsNet
 
 
 class LogisticsNetFactory(DjangoModelFactory):
@@ -21,14 +21,3 @@ class LogisticsNetFactory(DjangoModelFactory):
         {'source': 'C', 'destination': 'D', 'distance': 30},
         {'source': 'D', 'destination': 'E', 'distance': 30}
     ]
-
-
-class UserSearchFactory(DjangoModelFactory):
-
-    class Meta:
-        model = UserSearch
-
-    source = 'A'
-    destination = 'E'
-    autonomy = Decimal(10)
-    fuel_price = Decimal(3)
