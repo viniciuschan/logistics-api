@@ -12,4 +12,4 @@ before_install:
 before_script: pip install docker-compose
 
 script:
-  - docker-compose exec logistics-api su -c "python manage.py test"
+  - docker-compose run logistics-api su -c "python manage.py test"
