@@ -7,11 +7,12 @@ services:
 
 before_install:
   - cd logisticsnetwork
-  - docker container rm $(docker container ls -qa)
   - docker build -f Dockerfile -t logistics-api .
   - pkill postgres
 
 before_script: pip install docker-compose
 
 script:
-  - docker-compose run logistics-api su -c "python manage.py test"
+  - docker-compose up
+  - docker-compose restart
+  - docker-compose exec logistics-api su -c "python manage.py test"
