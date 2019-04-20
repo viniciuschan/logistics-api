@@ -1,5 +1,6 @@
 from collections import OrderedDict
 
+from rest_framework import filters
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 
@@ -10,6 +11,8 @@ from .serializers import LogisticsNetSerializer
 class LogisticsNetViewSet(viewsets.ModelViewSet):
     queryset = LogisticsNet.objects.all()
     serializer_class = LogisticsNetSerializer
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name', 'state')
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
