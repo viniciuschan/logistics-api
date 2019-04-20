@@ -7,9 +7,9 @@ services:
 
 before_install:
   - cd logisticsnetwork
+  - docker container rm $(docker container ls -qa)
   - docker build -f Dockerfile -t logistics-api .
   - pkill postgres
-  - sudo apt-get --purge remove postgresql
 
 before_script: pip install docker-compose
 
