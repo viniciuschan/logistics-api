@@ -7,7 +7,7 @@ services:
 
 before_script: pip install docker-compose
 
-install: pip install -r /logistics-api/logisticsnetwork/requirements.txt
+install: pip install -r /logisticsnetwork/requirements.txt
 
 script:
   - docker-compose run logistics-api sh -c "python /logistics-api/logisticsnetwork/manage.py test"
