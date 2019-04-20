@@ -8,5 +8,5 @@ services:
 before_script: pip install docker-compose
 
 script:
-  - docker-compose run logistics-api su -c "python manage.py test"
+  - docker-compose run logistics-api sh -c "python manage.py test"
 
