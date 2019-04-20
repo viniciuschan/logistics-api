@@ -5,8 +5,8 @@ python:
 services:
   - docker
 
-before_script: pip install docker-compose
+before_script: pip install docker-compose && cd /logisticsnetwork
 
 script:
-  - docker-compose run logistics-api sh -c "pip install -r /logisticsnetwork/requirements.txt && python /logisticsnetwork/manage.py test"
+  - docker-compose run logistics-api sh -c "pip install -r requirements.txt && python manage.py test"
 
