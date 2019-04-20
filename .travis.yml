@@ -10,4 +10,4 @@ before_install: cd logisticsnetwork
 before_script: pip install docker-compose
 
 script:
-  - docker-compose run logistics-api sh -c "pip install -r requirements.txt && python manage.py test"
+  - docker-compose exec logistics-api su -c "python manage.py test"
