@@ -5,7 +5,9 @@ python:
 services:
   - docker
 
-before_install: cd logisticsnetwork
+before_install:
+  - cd logisticsnetwork
+  - docker build -f Dockerfile -t logistics-api .
 
 before_script: pip install docker-compose
 
