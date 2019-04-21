@@ -1,5 +1,6 @@
 run:
 	docker-compose up
+	docker-compose restart
 
 restart:
 	docker-compose restart logistics-api
