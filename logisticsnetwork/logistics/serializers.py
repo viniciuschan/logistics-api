@@ -1,4 +1,5 @@
 import json
+from collections import OrderedDict
 
 from rest_framework import serializers
 
@@ -9,9 +10,8 @@ from.utils import (
 
 
 class LogisticsNetSerializer(serializers.ModelSerializer):
-    name = serializers.CharField(max_length=100)
-    state = serializers.CharField(max_length=2)
-    path_data = serializers.JSONField(binary=True)
+    name = serializers.CharField(max_length=100, required=True)
+    path_data = serializers.JSONField(binary=True, required=True)
 
     def validate_name(self, value):
         if len(value) < 2:
@@ -25,14 +25,6 @@ class LogisticsNetSerializer(serializers.ModelSerializer):
         elif LogisticsNet.objects.filter(name=value).exists():
             raise serializers.ValidationError(
                 f'Name {value} is already been used, please choose another one.'
-            )
-
-        return value
-
-    def validate_state(self, value):
-        if len(value) != 2:
-            raise serializers.ValidationError(
-                'State name cannot be longer than 2 characters'
             )
 
         return value
@@ -61,5 +53,4 @@ class LogisticsNetSerializer(serializers.ModelSerializer):
             'id',
             'name',
             'path_data',
-            'state',
         )

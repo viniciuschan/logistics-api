@@ -32,12 +32,10 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
         )
         self.payload = {
             'name': 'Rio de Janeiro',
-            'state': 'RJ',
             'path_data': self.path_data
         }
         self.log_net = LogisticsNetFactory.create(
             name='Ribeirao Preto',
-            state='SP',
             path_data=self.path_data
         )
         self.serializer = LogisticsNetSerializer(
@@ -75,10 +73,10 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
         self.assertIn('name', serializer.errors.keys())
 
     def test_invalid_existing_name(self):
-        LogisticsNetFactory.create(name='Americana')
+        LogisticsNetFactory.create(name='americana')
 
         data = self.payload
-        data.update({'name': 'Americana'})
+        data.update({'name': 'americana'})
 
         serializer = LogisticsNetSerializer(data=data)
 
@@ -86,22 +84,6 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
             serializer.is_valid(raise_exception=True)
 
         self.assertIn('name', serializer.errors.keys())
-
-    def test_valid_state(self):
-        self.assertEqual(
-            self.log_net.state, self.serializer.data['state']
-        )
-
-    def test_invalid_state(self):
-        data = self.payload
-        data.update({'state': 'Sao Paulo'})
-
-        serializer = LogisticsNetSerializer(data=data)
-
-        with self.assertRaises(serializers.ValidationError):
-            serializer.is_valid(raise_exception=True)
-
-        self.assertIn('state', serializer.errors.keys())
 
     def test_valid_json(self):
         serializer = LogisticsNetSerializer(data=self.payload)
@@ -113,7 +95,6 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
         path_data = ['A', 'B', 'C']
         data = {
             'name': 'Rio de Janeiro',
-            'state': 'RJ',
             'path_data': path_data
         }
         serializer = LogisticsNetSerializer(data=data)
@@ -142,7 +123,6 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
             ]
         data = {
             'name': 'Tocantins',
-            'state': 'MA',
             'path_data': invalid_path_data
         }
 
@@ -165,7 +145,6 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
             ]
         data = {
             'name': 'Rio de Janeiro',
-            'state': 'RJ',
             'path_data': invalid_path_data
         }
 
@@ -188,7 +167,6 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
             ]
         data = {
             'name': 'Sao Paulo',
-            'state': 'SP',
             'path_data': invalid_path_data
         }
 
@@ -211,7 +189,6 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
             ]
         data = {
             'name': 'Araraquara',
-            'state': 'SP',
             'path_data': invalid_path_data
         }
 
@@ -235,7 +212,6 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
         ]
         data = {
             'name': 'Sao Jose dos Campos',
-            'state': 'SP',
             'path_data': invalid_path_data
         }
 
@@ -259,7 +235,6 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
         ]
         data = {
             'name': 'Sao Jose dos Campos',
-            'state': 'SP',
             'path_data': invalid_path_data
         }
 
