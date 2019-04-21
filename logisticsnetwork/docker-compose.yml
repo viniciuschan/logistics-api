@@ -10,7 +10,7 @@ services:
     depends_on:
        - postgres
     links:
-      - db
+      - postgres
     volumes:
       - .:/logisticsnetwork
 
