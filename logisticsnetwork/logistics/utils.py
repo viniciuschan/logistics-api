@@ -2,23 +2,26 @@ from numbers import Number
 
 
 def has_mandatory_keys(data):
-    for item in data:
-        if not 'source' in item.keys() and not 'destination' in item.keys() and not 'distance' in item.keys():
-            return False
+	mandatory_keys = set(['source', 'destination', 'distance'])
+	for item in data:
+		if not mandatory_keys.issubset(item.keys()):
+			return False
 
-    return True
-
-
-def has_invalid_keys(data):
-    keys = set(key for item in data for key in item.keys())
-    for item in keys:
-        if item not in ['source', 'destination', 'distance']:
-            return True
-
-    return False
+	return True
 
 
-def is_valid_distance(data):
+def has_valid_keys(data):
+	valid_keys = set(['source', 'destination', 'distance'])
+
+	data_keys = set(key for item in data for key in item.keys())
+
+	if not data_keys.issubset(valid_keys):
+		return False
+
+	return True
+
+
+def has_valid_distance(data):
     for item in data:
         if not isinstance(item['distance'], Number) or item['distance'] < 0:
             return False

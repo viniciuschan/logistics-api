@@ -2,8 +2,8 @@ from rest_framework.test import APITransactionTestCase
 
 from logistics.utils import (
     has_mandatory_keys,
-    has_invalid_keys,
-    is_valid_distance
+    has_valid_keys,
+    has_valid_distance
 )
 
 
@@ -35,9 +35,12 @@ class UtilsTestCase(APITransactionTestCase):
         data = self.valid_data
         data[0].pop('source')
 
-        self.assertTrue(has_mandatory_keys(data))
+        self.assertFalse(has_mandatory_keys(data))
 
-    def test_has_invalid_keys_true(self):
+    def test_has_valid_keys_true(self):
+        self.assertTrue(has_valid_keys(self.valid_data))
+
+    def test_has_valid_keys_false(self):
         invalid_data = [
             {
                 'sou': 'C',
@@ -46,15 +49,12 @@ class UtilsTestCase(APITransactionTestCase):
             }
         ]
 
-        self.assertTrue(has_invalid_keys(invalid_data))
+        self.assertFalse(has_valid_keys(invalid_data))
 
-    def test_has_invalid_keys_false(self):
-        self.assertFalse(has_invalid_keys(self.valid_data))
+    def test_has_valid_distance_number(self):
+        self.assertTrue(has_valid_distance(self.valid_data))
 
-    def test_is_valid_distance_number(self):
-        self.assertTrue(is_valid_distance(self.valid_data))
-
-    def test_is_valid_distance_not_a_number(self):
+    def test_has_valid_distance_not_a_number(self):
         invalid_data = [
             {
                 'source': 'C',
@@ -63,12 +63,12 @@ class UtilsTestCase(APITransactionTestCase):
             }
         ]
 
-        self.assertFalse(is_valid_distance(invalid_data))
+        self.assertFalse(has_valid_distance(invalid_data))
 
-    def test_is_valid_distance_positive(self):
-        self.assertTrue(is_valid_distance(self.valid_data))
+    def test_has_valid_distance_positive(self):
+        self.assertTrue(has_valid_distance(self.valid_data))
 
-    def test_is_valid_distance_negative(self):
+    def test_has_valid_distance_negative(self):
         invalid_data = [
             {
                 'source': 'C',
@@ -77,4 +77,4 @@ class UtilsTestCase(APITransactionTestCase):
             }
         ]
 
-        self.assertFalse(is_valid_distance(invalid_data))
+        self.assertFalse(has_valid_distance(invalid_data))
