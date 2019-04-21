@@ -8,14 +8,15 @@ services:
     ports:
        - "8000:8000"
     depends_on:
-       - db
+       - postgres
     links:
       - db
     volumes:
       - .:/logisticsnetwork
 
-  db:
-    image: postgres
+  postgres:
+    image: postgres:10.5
+    restart: always
     ports:
       - "5432:5432"
     environment:
