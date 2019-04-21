@@ -8,13 +8,13 @@ services:
     ports:
        - "8000:8000"
     depends_on:
-       - postgres
+       - db
     links:
-      - postgres
+      - db
     volumes:
       - .:/logisticsnetwork
 
-  postgres:
+  db:
     image: postgres:10.5
     restart: always
     ports:
@@ -23,8 +23,6 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=logistics
-      - POSTGRES_PORT=5432
-      - POSTGRES_HOST=postgres
     volumes:
       - database:/var/lib/postgresql/data
 
