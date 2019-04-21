@@ -57,6 +57,7 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
 
         with self.assertRaises(serializers.ValidationError):
             serializer.is_valid(raise_exception=True)
+
         self.assertIn('name', serializer.errors.keys())
 
     def test_invalid_name_too_many_characters(self):
@@ -70,6 +71,7 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
 
         with self.assertRaises(serializers.ValidationError):
             serializer.is_valid(raise_exception=True)
+
         self.assertIn('name', serializer.errors.keys())
 
     def test_invalid_existing_name(self):
@@ -82,6 +84,7 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
 
         with self.assertRaises(serializers.ValidationError):
             serializer.is_valid(raise_exception=True)
+
         self.assertIn('name', serializer.errors.keys())
 
     def test_valid_state(self):
@@ -97,6 +100,7 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
 
         with self.assertRaises(serializers.ValidationError):
             serializer.is_valid(raise_exception=True)
+
         self.assertIn('state', serializer.errors.keys())
 
     def test_valid_json(self):
@@ -112,6 +116,153 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
             'state': 'RJ',
             'path_data': path_data
         }
+        serializer = LogisticsNetSerializer(data=data)
+
+        with self.assertRaises(serializers.ValidationError):
+            serializer.is_valid(raise_exception=True)
+
+    def test_valid_path_data(self):
+        serializer = LogisticsNetSerializer(data=self.payload)
+        response = serializer.is_valid(raise_exception=True)
+
+        self.assertTrue(response)
+
+    def test_invalid_path_data_key(self):
+        invalid_path_data = [
+                {
+                    'sou': 'C',
+                    'destination': 'D',
+                    'distance': 20
+                },
+                {
+                    'source': 'D',
+                    'destination': 'E',
+                    'distance': 30
+                },
+            ]
+        data = {
+            'name': 'Tocantins',
+            'state': 'MA',
+            'path_data': invalid_path_data
+        }
+
+        serializer = LogisticsNetSerializer(data=data)
+
+        with self.assertRaises(serializers.ValidationError):
+            serializer.is_valid(raise_exception=True)
+
+    def test_invalid_path_data_source(self):
+        invalid_path_data = [
+                {
+                    'destination': 'D',
+                    'distance': 20
+                },
+                {
+                    'source': 'D',
+                    'destination': 'E',
+                    'distance': 30
+                },
+            ]
+        data = {
+            'name': 'Rio de Janeiro',
+            'state': 'RJ',
+            'path_data': invalid_path_data
+        }
+
+        serializer = LogisticsNetSerializer(data=data)
+
+        with self.assertRaises(serializers.ValidationError):
+            serializer.is_valid(raise_exception=True)
+
+    def test_invalid_path_data_destination(self):
+        invalid_path_data = [
+                {
+                    'source': 'C',
+                    'distance': 20
+                },
+                {
+                    'source': 'D',
+                    'destination': 'E',
+                    'distance': 30
+                }
+            ]
+        data = {
+            'name': 'Sao Paulo',
+            'state': 'SP',
+            'path_data': invalid_path_data
+        }
+
+        serializer = LogisticsNetSerializer(data=data)
+
+        with self.assertRaises(serializers.ValidationError):
+            serializer.is_valid(raise_exception=True)
+
+    def test_invalid_path_data_distance(self):
+        invalid_path_data = [
+                {
+                    'source': 'C',
+                    'destination': 'D',
+                },
+                {
+                    'source': 'D',
+                    'destination': 'E',
+                    'distance': 30
+                }
+            ]
+        data = {
+            'name': 'Araraquara',
+            'state': 'SP',
+            'path_data': invalid_path_data
+        }
+
+        serializer = LogisticsNetSerializer(data=data)
+
+        with self.assertRaises(serializers.ValidationError):
+            serializer.is_valid(raise_exception=True)
+
+    def test_invalid_path_data_distance_negative(self):
+        invalid_path_data = [
+                {
+                    'source': 'C',
+                    'destination': 'D',
+                    'distance': -20
+                },
+                {
+                    'source': 'D',
+                    'destination': 'E',
+                    'distance': 30
+                }
+        ]
+        data = {
+            'name': 'Sao Jose dos Campos',
+            'state': 'SP',
+            'path_data': invalid_path_data
+        }
+
+        serializer = LogisticsNetSerializer(data=data)
+
+        with self.assertRaises(serializers.ValidationError):
+            serializer.is_valid(raise_exception=True)
+
+    def test_invalid_path_data_distance_not_a_number(self):
+        invalid_path_data = [
+                {
+                    'source': 'C',
+                    'destination': 'D',
+                    'distance': '25D'
+                },
+                {
+                    'source': 'D',
+                    'destination': 'E',
+                    'distance': 30
+                }
+        ]
+        data = {
+            'name': 'Sao Jose dos Campos',
+            'state': 'SP',
+            'path_data': invalid_path_data
+        }
+
         serializer = LogisticsNetSerializer(data=data)
 
         with self.assertRaises(serializers.ValidationError):
