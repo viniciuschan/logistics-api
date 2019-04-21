@@ -29,16 +29,17 @@ class GraphService:
     def get_shortest_path(self, source, destination):
         try:
             shortest_path = nx.dijkstra_path(
-                self.graph, source, destination
+                self.graph, source.capitalize(), destination.capitalize()
             )
         except Exception as exc:
             raise exc
+
         return shortest_path
 
     def get_shortest_distance(self, source, destination):
         try:
             distance = nx.dijkstra_path_length(
-                self.graph, source, destination
+                self.graph, source.capitalize(), destination.capitalize()
             )
         except Exception as exc:
             raise exc
@@ -46,7 +47,12 @@ class GraphService:
         return distance
 
     def calculate_price(self, distance, autonomy, fuel_price):
-        return Decimal((distance / autonomy) * fuel_price)
+        try:
+            price = Decimal(distance) / Decimal(autonomy) * Decimal(fuel_price)
+        except Exception as exc:
+            raise exc
+
+        return price
 
     def calculate_best_cost(self, path_data, source, destination, autonomy, fuel_price):
         self.load_graph_data(path_data)
