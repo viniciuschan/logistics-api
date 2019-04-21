@@ -1,0 +1,61 @@
+language: python
+python:
+  - "3.6"
+
+sudo: required
+
+cache: pip
+
+services:
+  - docker
+
+env:
+  DOCKER_COMPOSE_VERSION: 1.22.0
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_DB: logistics
+  DOCKER_NETWORK: logistics_default
+
+before_install:
+  - cd logisticsnetwork
+
+ # Needs to update the repositories to see the new packages for Docker.
+  - sudo apt-get update
+
+  # Newer docker-engine is required for the newer docker-compose
+  - sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-ce
+
+  # Stop postgresql
+  - sudo service postgresql stop
+
+  # wait for postgresql to shutdown
+  - while sudo lsof -Pi :5432 -sTCP:LISTEN -t; do sleep 1; done
+
+  # Print out the current docker-compose version. Once this reports 1.6+ then we
+  # do not need the following steps.
+  - docker-compose --version
+
+  # Update travis docker-compose
+  # $DOCKER_COMPOSE_VERSION is provide from the `env` above
+  - sudo rm /usr/local/bin/docker-compose
+
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
+  # Check that docker-compose is now running the latest version
+  - docker-compose --version
+
+  # Setup your application stack.
+  - docker-compose pull
+  - docker build -f Dockerfile -t logistics-api .
+  - docker-compose up -d
+
+  # This is for logging. If your containers does not build for any reason
+  - docker ps
+
+script:
+  - docker-compose restart
+  - docker version
+  - docker-compose version
+  - docker-compose exec logistics-api su -c "python manage.py test"

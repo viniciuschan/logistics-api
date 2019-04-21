@@ -15,7 +15,8 @@ services:
       - .:/logisticsnetwork
 
   db:
-    image: postgres
+    image: postgres:10.5
+    restart: always
     ports:
       - "5432:5432"
     environment:
