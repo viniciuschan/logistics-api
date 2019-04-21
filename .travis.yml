@@ -19,6 +19,13 @@ env:
 before_install:
   - cd logisticsnetwork
 
+# This solution was provided to make Travis with postgres database.
+# This might be a Travis solution bug with postgres database driver
+# I had the following issue with Travis:
+# - ERROR: for db Cannot start service db: b'driver failed programming
+#   external connectivity on endpoint postgres travis
+
+
  # Needs to update the repositories to see the new packages for Docker.
   - sudo apt-get update
 

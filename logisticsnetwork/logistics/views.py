@@ -16,7 +16,7 @@ class LogisticsNetViewSet(viewsets.ModelViewSet):
     queryset = LogisticsNet.objects.all()
     serializer_class = LogisticsNetSerializer
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('name', 'state')
+    search_fields = ('name',)
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -56,7 +56,7 @@ class LogisticsNetViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['get'], url_path='check-best-way')
     def check_best_path(self, request, *args, **kwargs):
-        name = self.request.query_params.get('name')
+        name = self.request.query_params.get('name').lower()
         source = self.request.query_params.get('source')
         destination = self.request.query_params.get('destination')
         autonomy = self.request.query_params.get('autonomy')
