@@ -31,7 +31,6 @@ class LogisticNetViewSetTestCase(APITransactionTestCase):
         )
         self.payload = {
             'name': 'Alfenas',
-            'state': 'MG',
             'path_data': self.path_data
         }
 

@@ -11,7 +11,6 @@ class LogisticsNetFactory(DjangoModelFactory):
         model = LogisticsNet
 
     name = 'Sao Paulo'
-    state = 'SP'
     date_added = '2019-04-18'
     path_data = [
         {'source': 'A', 'destination': 'B', 'distance': 10},
