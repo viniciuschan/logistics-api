@@ -11,14 +11,14 @@ migrate:
 test:
 	docker-compose exec logistics-api su -c "python manage.py test -v2"
 
+loaddata:
+	docker-compose exec logistics-api su -c "python manage.py loaddata network.json"
+
 down:
 	docker-compose down
 
 
 # Useful commands during development
-loaddata:
-	docker-compose exec logistics-api su -c "python manage.py loaddata network.json"
-
 shell:
 	docker-compose exec logistics-api su -c "python manage.py shell"
 
