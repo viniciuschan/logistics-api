@@ -9,13 +9,9 @@ class LogisticsNetSerializer(serializers.ModelSerializer):
     path_data = serializers.JSONField(binary=True, required=True)
 
     def validate_name(self, value):
-        if len(value) < 2:
+        if not 2 <= len(value) <= 100:
             raise serializers.ValidationError(
-                'Invalid name, it must contain more than 2 characters.'
-            )
-        elif len(value) > 100:
-            raise serializers.ValidationError(
-                'Invalid name, you have exceeded 100 characters'
+                'Invalid name, allowed between 2 and 100 characters'
             )
         elif LogisticsNet.objects.filter(name=value).exists():
             raise serializers.ValidationError(
@@ -31,7 +27,7 @@ class LogisticsNetSerializer(serializers.ModelSerializer):
 
         if not has_valid_distance(value):
             raise serializers.ValidationError(
-                'Invalid distance for path data, it must a positive integer'
+                'Invalid distance, it must be a positive integer'
             )
         return value
 
