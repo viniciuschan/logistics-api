@@ -40,8 +40,6 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'logistics',
-
-    'localflavor',
 ]
 
 MIDDLEWARE = [
