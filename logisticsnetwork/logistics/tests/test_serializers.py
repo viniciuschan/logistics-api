@@ -1,10 +1,9 @@
 import json
 
-from rest_framework import serializers, status
+from rest_framework import serializers
 from rest_framework.test import APITransactionTestCase
 
 from .factories import LogisticsNetFactory
-from logistics.models import LogisticsNet
 from logistics.serializers import LogisticsNetSerializer
 
 
@@ -52,24 +51,19 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
         data.update({'name': 'A'})
 
         serializer = LogisticsNetSerializer(data=data)
-
         with self.assertRaises(serializers.ValidationError):
             serializer.is_valid(raise_exception=True)
-
         self.assertIn('name', serializer.errors.keys())
 
     def test_invalid_name_too_many_characters(self):
         invalid_name = 'teste-teste-teste-teste-teste-teste-teste\
             testeteste-teste-teste-teste-teste-teste-teste-teste-teste'
-
         data = self.payload
         data.update({'name': invalid_name})
 
         serializer = LogisticsNetSerializer(data=data)
-
         with self.assertRaises(serializers.ValidationError):
             serializer.is_valid(raise_exception=True)
-
         self.assertIn('name', serializer.errors.keys())
 
     def test_invalid_existing_name(self):
@@ -79,16 +73,13 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
         data.update({'name': 'americana'})
 
         serializer = LogisticsNetSerializer(data=data)
-
         with self.assertRaises(serializers.ValidationError):
             serializer.is_valid(raise_exception=True)
-
         self.assertIn('name', serializer.errors.keys())
 
     def test_valid_json(self):
         serializer = LogisticsNetSerializer(data=self.payload)
         response = serializer.is_valid(raise_exception=True)
-
         self.assertTrue(response)
 
     def test_invalid_json(self):
@@ -98,14 +89,12 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
             'path_data': path_data
         }
         serializer = LogisticsNetSerializer(data=data)
-
         with self.assertRaises(serializers.ValidationError):
             serializer.is_valid(raise_exception=True)
 
     def test_valid_path_data(self):
         serializer = LogisticsNetSerializer(data=self.payload)
         response = serializer.is_valid(raise_exception=True)
-
         self.assertTrue(response)
 
     def test_invalid_path_data_key(self):
@@ -125,9 +114,7 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
             'name': 'Tocantins',
             'path_data': invalid_path_data
         }
-
         serializer = LogisticsNetSerializer(data=data)
-
         with self.assertRaises(serializers.ValidationError):
             serializer.is_valid(raise_exception=True)
 
@@ -147,9 +134,7 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
             'name': 'Rio de Janeiro',
             'path_data': invalid_path_data
         }
-
         serializer = LogisticsNetSerializer(data=data)
-
         with self.assertRaises(serializers.ValidationError):
             serializer.is_valid(raise_exception=True)
 
@@ -171,7 +156,6 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
         }
 
         serializer = LogisticsNetSerializer(data=data)
-
         with self.assertRaises(serializers.ValidationError):
             serializer.is_valid(raise_exception=True)
 
@@ -191,9 +175,7 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
             'name': 'Araraquara',
             'path_data': invalid_path_data
         }
-
         serializer = LogisticsNetSerializer(data=data)
-
         with self.assertRaises(serializers.ValidationError):
             serializer.is_valid(raise_exception=True)
 
@@ -214,9 +196,7 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
             'name': 'Sao Jose dos Campos',
             'path_data': invalid_path_data
         }
-
         serializer = LogisticsNetSerializer(data=data)
-
         with self.assertRaises(serializers.ValidationError):
             serializer.is_valid(raise_exception=True)
 
@@ -237,8 +217,6 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
             'name': 'Sao Jose dos Campos',
             'path_data': invalid_path_data
         }
-
         serializer = LogisticsNetSerializer(data=data)
-
         with self.assertRaises(serializers.ValidationError):
             serializer.is_valid(raise_exception=True)
