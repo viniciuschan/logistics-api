@@ -58,16 +58,16 @@ Body contract:
 ```
 {
     "name": "sp",
-    "path_data":[
+    "path_data": [
         {
             "source": "A",
             "destination": "B",
             "distance": 10
         },
         {
-            "origin":"B",
-            "destiny":"D",
-            "distance":15
+            "source": "B",
+            "destination": "D",
+            "distance": 15
         }
     ]
 }
@@ -81,16 +81,16 @@ Response:
     {
         "id": 1,
         "name": "sp",
-        "path_data":[
+        "path_data": [
             {
                 "source": "A",
                 "destination": "B",
                 "distance": 10
             },
             {
-                "origin":"B",
-                "destiny":"D",
-                "distance":15
+                "source": "B",
+                "destination": "D",
+                "distance": 15
             }
         ]
     },
@@ -101,7 +101,7 @@ Response:
             {
                 "source": "X",
                 "destination": "Y",
-                "distance 50"
+                "distance": 50
             }
         ]
     }
@@ -115,15 +115,15 @@ Response:
 {
     "id": 1,
     "name": "sp",
-    "path_data":[
+    "path_data": [
         {
             "source": "A",
             "destination": "B",
             "distance": 10
         },
         {
-            "origin":"B",
-            "destiny":"D",
+            "source":"B",
+            "destination":"D",
             "distance":15
         }
     ]
