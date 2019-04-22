@@ -73,6 +73,26 @@ Body contract:
 }
 ```
 
+#### UPDATE
+Endpoint: **http://localhost:80001/v1/logistics/1/**
+Body contract:
+```
+{
+    path_data: [
+        {
+            "source": "A",
+            "destination": "B",
+            "distance": 10
+        },
+        {
+            "source": "B",
+            "destination": "F",
+            "distance": 50
+        }
+    ]
+}
+```
+
 #### LIST
 Endpoint: **http://localhost:80001/v1/logistics/**
 Response:
