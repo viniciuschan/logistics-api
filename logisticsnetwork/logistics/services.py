@@ -13,6 +13,7 @@ class GraphService:
         """ Load graph with valid path_data.
             Networkx expects a list of tuples.
         """
+
         try:
             valid_data = convert_dict_to_tuple(path_data)
             self.graph.add_weighted_edges_from(valid_data)
@@ -21,6 +22,10 @@ class GraphService:
         return True
 
     def get_shortest_path(self, source, destination):
+        """ Get shortest path based on source and destination.
+            Outputs a list, ['A', 'B', 'D'] for example.
+        """
+
         try:
             shortest_path = nx.dijkstra_path(
                 self.graph,
@@ -32,6 +37,10 @@ class GraphService:
         return shortest_path
 
     def get_shortest_distance(self, source, destination):
+        """ Get shortest path based on source and destination.
+            Outputs a number value, 25 for example.
+        """
+
         try:
             distance = nx.dijkstra_path_length(
                 self.graph, source.capitalize(),
@@ -42,6 +51,10 @@ class GraphService:
         return distance
 
     def calculate_price(self, distance, autonomy, fuel_price):
+        """ Calculate best cost considering the shortest distance
+            between two points.
+        """
+
         try:
             price = float(distance) / float(autonomy) * float(fuel_price)
         except Exception as exc:
