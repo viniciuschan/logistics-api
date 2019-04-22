@@ -1,7 +1,5 @@
 import json
-from decimal import Decimal
 
-from rest_framework import status
 from rest_framework.test import APITransactionTestCase
 
 from logistics.models import LogisticsNet
@@ -34,7 +32,6 @@ class LogisticNetModelTestCase(APITransactionTestCase):
     def test_str(self):
         log_net = LogisticsNetFactory.create(name='Sao Paulo')
         object_text = f'ID: {log_net.pk} - {log_net.name}'
-
         self.assertEqual(str(log_net), object_text)
 
     def test_create(self):
