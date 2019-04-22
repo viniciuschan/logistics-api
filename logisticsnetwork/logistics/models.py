@@ -10,7 +10,7 @@ class LogisticsNet(models.Model):
     date_added = models.DateField('date added', auto_now_add=True)
 
     def __str__(self):
-        return f'ID: {self.pk} - {self.name}'
+        return f'ID: {self.pk} - Name: {self.name}'
 
     class Meta:
         verbose_name = 'Logistic Network'

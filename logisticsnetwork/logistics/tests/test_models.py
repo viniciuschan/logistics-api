@@ -31,7 +31,7 @@ class LogisticNetModelTestCase(APITransactionTestCase):
 
     def test_str(self):
         log_net = LogisticsNetFactory.create(name='Sao Paulo')
-        object_text = f'ID: {log_net.pk} - {log_net.name}'
+        object_text = f'ID: {log_net.pk} - Name: {log_net.name}'
         self.assertEqual(str(log_net), object_text)
 
     def test_create(self):
