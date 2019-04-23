@@ -4,7 +4,7 @@ from .utils import convert_dict_to_tuple
 
 
 class GraphService:
-    """ Service to calculate graph distance and costs """
+    """Service to calculate graph distance and costs."""
 
     def __init__(self):
         self.graph = nx.Graph()
@@ -17,12 +17,12 @@ class GraphService:
         try:
             valid_data = convert_dict_to_tuple(path_data)
             self.graph.add_weighted_edges_from(valid_data)
-        except Exception as exc:
-            raise exc
+        except:
+            raise TypeError('Invalid data type to load graph')
         return True
 
     def get_shortest_path(self, source, destination):
-        """ Get shortest path based on source and destination.
+        """Get shortest path based on source and destination.
             Outputs a list, ['A', 'B', 'D'] for example.
         """
 
@@ -32,12 +32,12 @@ class GraphService:
                 source.capitalize(),
                 destination.capitalize()
             )
-        except Exception as exc:
-            raise exc
+        except:
+            raise ValueError('Invalid route')
         return shortest_path
 
     def get_shortest_distance(self, source, destination):
-        """ Get shortest path based on source and destination.
+        """Get shortest path based on source and destination.
             Outputs a number value, 25 for example.
         """
 
@@ -46,19 +46,19 @@ class GraphService:
                 self.graph, source.capitalize(),
                 destination.capitalize()
             )
-        except Exception as exc:
-            raise exc
+        except:
+            raise ValueError('Invalid route')
         return distance
 
     def calculate_price(self, distance, autonomy, fuel_price):
-        """ Calculate best cost considering the shortest distance
+        """Calculate best cost considering the shortest distance
             between two points.
         """
 
         try:
             price = float(distance) / float(autonomy) * float(fuel_price)
-        except Exception as exc:
-            raise exc
+        except ZeroDivisionError:
+            price = 0
         return price
 
     def calculate_best_cost(self, path_data, source,

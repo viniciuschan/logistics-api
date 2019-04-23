@@ -3,7 +3,7 @@ from django.db import models
 
 
 class LogisticsNet(models.Model):
-    """ Model to represent logistic networks """
+    """Model to represent logistic networks."""
 
     name = models.CharField(
         'name', max_length=100, db_index=True, unique=True

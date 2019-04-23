@@ -1,6 +1,6 @@
 import json
 
-from rest_framework import filters
+from rest_framework import filters, serializers
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -11,6 +11,8 @@ from .services import GraphService
 
 
 class LogisticsNetViewSet(viewsets.ModelViewSet):
+    """ModelViewSet for LogisticsNet model."""
+
     queryset = LogisticsNet.objects.all()
     serializer_class = LogisticsNetSerializer
     filter_backends = (filters.SearchFilter,)
@@ -45,8 +47,10 @@ class LogisticsNetViewSet(viewsets.ModelViewSet):
 
         try:
             log_net = LogisticsNet.objects.get(name=serializer.data.get('name'))
-        except LogisticsNet.DoesNotExist as exc:
-            raise exc
+        except:
+            raise serializers.ValidationError(
+                f'Logistics Net not found. Please choose a valid one.'
+            )
 
         try:
             response = graph_service.calculate_best_cost(
@@ -56,7 +60,7 @@ class LogisticsNetViewSet(viewsets.ModelViewSet):
                 autonomy=serializer.data.get('autonomy'),
                 fuel_price=serializer.data.get('fuel_price')
             )
-        except Exception as exc:
-            raise exc
+        except:
+            raise Exception
 
         return Response(response, status=status.HTTP_200_OK)
