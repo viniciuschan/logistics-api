@@ -30,3 +30,6 @@ db:
 
 superuser:
 	docker-compose exec logistics-api su -c "python manage.py createsuperuser"
+
+remove_containers:
+	docker container rm $(docker container ls -aq)
