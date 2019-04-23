@@ -1,22 +1,30 @@
-version: '2'
+version: '2.1'
 
 services:
   logistics-api:
     build: .
     command: su -c "python manage.py runserver 0.0.0.0:8000"
-    restart: always
     ports:
        - "8000:8000"
     depends_on:
-       - db
+      db:
+        condition: service_healthy
     links:
       - db
     volumes:
       - .:/logisticsnetwork
+    environment:
+      - DJANGO_SETTINGS_MODULE=logisticsnetwork.settings
+      - SECRET_KEY="7chsdzy1!f^*9p$$%!$$otibuz6x*k@2+k4@!yd5ww_08vynzc=n"
+      - DATABASE_ENGINE=django.db.backends.postgresql
+      - DATABASE_NAME=logistics
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=postgres
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
 
   db:
     image: postgres:10.5
-    restart: always
     ports:
       - "5432:5432"
     environment:
@@ -25,6 +33,11 @@ services:
       - POSTGRES_DB=logistics
     volumes:
       - database:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 volumes:
   database:
