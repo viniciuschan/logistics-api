@@ -8,8 +8,7 @@ Logistics API
 =============
 ##### API Rest to deal with a logistics network and best routes
 ###### Author: Vinícius Chan
-
-
+  
 #### Before getting started, we must install some dependencies:
 
 | Dependency | Download Link |
@@ -23,6 +22,7 @@ Logistics API
 
 
 # Getting Started
+  
 I've prepared an easy way to run this project locally:
 
 1. Clone this repository:
@@ -53,7 +53,9 @@ $ make test
 # About project: How it works
 ## Manipulating logistics networks
 #### POST
+  
 Endpoint: **http://localhost:80001/v1/logistics/**
+  
 Body contract:
 ```
 {
@@ -75,6 +77,7 @@ Body contract:
 
 #### UPDATE
 Endpoint: **http://localhost:80001/v1/logistics/1/**
+  
 Body contract:
 ```
 {
@@ -95,6 +98,7 @@ Body contract:
 
 #### LIST
 Endpoint: **http://localhost:80001/v1/logistics/**
+  
 Response:
 ```
 [
@@ -130,6 +134,7 @@ Response:
 
 #### GET
 Endpoint: **http://localhost:80001/v1/logistics/1/**
+  
 Response:
 ```
 {
@@ -151,9 +156,10 @@ Response:
 }
 ```
 
-## Consult best route through logistics networks
+## How to consult best route through Logistics Networks
 #### GET
 Endpoint: **http://localhost:8000/v1/logistics/check-best-way/?name=sp&source=A&destination=D&autonomy=10&fuel_price=2.5**
+  
 Response content:
 ```
 {
