@@ -33,7 +33,7 @@ class GraphService:
                 destination.capitalize()
             )
         except:
-            raise ValueError('Invalid route')
+            raise ValueError('Invalid route.')
         return shortest_path
 
     def get_shortest_distance(self, source, destination):
@@ -47,7 +47,7 @@ class GraphService:
                 destination.capitalize()
             )
         except:
-            raise ValueError('Invalid route')
+            raise ValueError('Invalid route.')
         return distance
 
     def calculate_price(self, distance, autonomy, fuel_price):

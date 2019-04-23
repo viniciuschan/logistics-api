@@ -107,7 +107,7 @@ class LogisticNetViewSetTestCase(APITransactionTestCase):
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(LogisticsNet.objects.count(), 0)
 
-    def test_check_best_path_view(self):
+    def test_check_best_path_view_valid(self):
         log = LogisticsNetFactory.create(name='map')
         source, destination, autonomy, fuel_price = 'A', 'D', 10, 2
 
@@ -117,3 +117,14 @@ class LogisticNetViewSetTestCase(APITransactionTestCase):
         endpoint = f'/v1/logistics/best-path/{params}'
         response = self.client.get(endpoint)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_check_best_path_view_invalid(self):
+        log = LogisticsNetFactory.create(name='map')
+        source, destination, autonomy, fuel_price = 'A', 'Z', 10, 2
+
+        params = '?name={}&source={}&destination={}&autonomy={}&fuel_price={}'.format(
+            log.name,  source, destination, autonomy, fuel_price
+        )
+        endpoint = f'/v1/logistics/best-path/{params}'
+        with self.assertRaises(ValueError):
+            self.client.get(endpoint)

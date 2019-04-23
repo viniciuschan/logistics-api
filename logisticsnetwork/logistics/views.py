@@ -1,6 +1,6 @@
 import json
 
-from rest_framework import filters, serializers
+from rest_framework import filters
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -47,20 +47,14 @@ class LogisticsNetViewSet(viewsets.ModelViewSet):
 
         try:
             log_net = LogisticsNet.objects.get(name=serializer.data.get('name'))
-        except:
-            raise serializers.ValidationError(
-                f'Logistics Net not found. Please choose a valid one.'
-            )
+        except LogisticsNet.DoesNotExist:
+            raise ValueError('Invalid name, Logistics Network not found.')
 
-        try:
-            response = graph_service.calculate_best_cost(
-                path_data=json.dumps(log_net.path_data),
-                source=serializer.data.get('source'),
-                destination=serializer.data.get('destination'),
-                autonomy=serializer.data.get('autonomy'),
-                fuel_price=serializer.data.get('fuel_price')
-            )
-        except:
-            raise Exception
-
+        response = graph_service.calculate_best_cost(
+            path_data=json.dumps(log_net.path_data),
+            source=serializer.data.get('source'),
+            destination=serializer.data.get('destination'),
+            autonomy=serializer.data.get('autonomy'),
+            fuel_price=serializer.data.get('fuel_price')
+        )
         return Response(response, status=status.HTTP_200_OK)
