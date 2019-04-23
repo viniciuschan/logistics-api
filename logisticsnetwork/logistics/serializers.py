@@ -2,7 +2,10 @@ from rest_framework import serializers
 
 from .models import LogisticsNet
 from.utils import (
-    has_valid_keys, has_valid_distance, has_valid_price
+    has_valid_keys,
+    has_valid_distance,
+    has_mandatory_keys,
+    has_valid_price
 )
 
 
@@ -10,7 +13,7 @@ class LogisticsNetSerializer(serializers.ModelSerializer):
     """ModelSerializer for LogisticsNet model."""
 
     name = serializers.CharField(max_length=100, required=True)
-    path_data = serializers.JSONField(binary=True, required=True)
+    path_data = serializers.JSONField(required=True)
 
     def validate_name(self, value):
         if not 2 <= len(value) <= 100:
@@ -26,6 +29,11 @@ class LogisticsNetSerializer(serializers.ModelSerializer):
         return value
 
     def validate_path_data(self, value):
+        if not has_mandatory_keys(value):
+            raise serializers.ValidationError(
+                'Missing path data key'
+            )
+
         if not has_valid_keys(value):
             raise serializers.ValidationError(
                 'Invalid keys for path data'
@@ -54,7 +62,7 @@ class LogisticsNetSerializer(serializers.ModelSerializer):
 
 
 class BestPathSerializer(serializers.ModelSerializer):
-    """Serializer to validate"""
+    """Serializer to validate Best Path action fields"""
 
     name = serializers.CharField(max_length=100, required=True)
     source = serializers.CharField(max_length=40, required=True)

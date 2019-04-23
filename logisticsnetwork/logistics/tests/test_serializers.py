@@ -1,5 +1,3 @@
-import json
-
 from rest_framework import serializers
 from rest_framework.test import APITransactionTestCase
 
@@ -13,8 +11,7 @@ from logistics.serializers import (
 class LogisticsNetSerializerTestCase(APITransactionTestCase):
 
     def setUp(self):
-        self.path_data = json.dumps(
-            [
+        self.path_data = [
                 {
                     'source': 'C',
                     'destination': 'D',
@@ -31,7 +28,6 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
                     'distance': 80
                 }
             ]
-        )
         self.payload = {
             'name': 'Rio de Janeiro',
             'path_data': self.path_data
@@ -82,7 +78,7 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
             'path_data': path_data
         }
         serializer = LogisticsNetSerializer(data=data)
-        with self.assertRaises(serializers.ValidationError):
+        with self.assertRaises(AttributeError):
             serializer.is_valid(raise_exception=True)
 
     def test_valid_path_data(self):
@@ -212,6 +208,15 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
         }
         serializer = LogisticsNetSerializer(data=data)
         with self.assertRaises(serializers.ValidationError):
+            serializer.is_valid(raise_exception=True)
+
+    def test_invalid_path_data_body_attributes(self):
+        data = {
+            'name': 'Rio Preto',
+            'path_data': '{"a":"b"}'
+        }
+        serializer = LogisticsNetSerializer(data=data)
+        with self.assertRaises(AttributeError):
             serializer.is_valid(raise_exception=True)
 
 
