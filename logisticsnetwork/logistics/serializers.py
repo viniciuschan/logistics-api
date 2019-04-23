@@ -62,7 +62,7 @@ class LogisticsNetSerializer(serializers.ModelSerializer):
 
 
 class BestPathSerializer(serializers.ModelSerializer):
-    """Serializer to validate Best Path action fields"""
+    """Serializer to validate Best Path action fields."""
 
     name = serializers.CharField(max_length=100, required=True)
     source = serializers.CharField(max_length=40, required=True)
