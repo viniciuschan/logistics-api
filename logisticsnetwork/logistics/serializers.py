@@ -5,6 +5,8 @@ from.utils import has_valid_keys, has_valid_distance
 
 
 class LogisticsNetSerializer(serializers.ModelSerializer):
+    """ModelSerializer for LogisticsNet model."""
+
     name = serializers.CharField(max_length=100, required=True)
     path_data = serializers.JSONField(binary=True, required=True)
 
@@ -13,7 +15,8 @@ class LogisticsNetSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 'Invalid name, allowed between 2 and 100 characters'
             )
-        elif LogisticsNet.objects.filter(name=value).exists():
+        elif self.instance and LogisticsNet.objects.exclude(
+            pk=self.instance.pk).filter(name=value).exists():
             raise serializers.ValidationError(
                 f'Name {value} is already been used.'
             )

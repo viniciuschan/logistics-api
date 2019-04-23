@@ -66,17 +66,6 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
             serializer.is_valid(raise_exception=True)
         self.assertIn('name', serializer.errors.keys())
 
-    def test_invalid_existing_name(self):
-        LogisticsNetFactory.create(name='americana')
-
-        data = self.payload
-        data.update({'name': 'americana'})
-
-        serializer = LogisticsNetSerializer(data=data)
-        with self.assertRaises(serializers.ValidationError):
-            serializer.is_valid(raise_exception=True)
-        self.assertIn('name', serializer.errors.keys())
-
     def test_valid_json(self):
         serializer = LogisticsNetSerializer(data=self.payload)
         response = serializer.is_valid(raise_exception=True)

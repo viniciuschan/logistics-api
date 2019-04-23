@@ -1,5 +1,6 @@
 import json
 
+from django.db import IntegrityError
 from rest_framework import status
 from rest_framework.test import APITransactionTestCase
 
@@ -33,29 +34,30 @@ class LogisticNetViewSetTestCase(APITransactionTestCase):
             'name': 'Alfenas',
             'path_data': self.path_data
         }
+        self.endpoint = '/v1/logistics/'
 
     def test_create(self):
-        endpoint_create = '/v1/logistics/'
 
-        response = self.client.post(endpoint_create, self.payload)
+        response = self.client.post(self.endpoint, self.payload)
         self.assertEqual(
             response.status_code, status.HTTP_201_CREATED
         )
         self.assertEqual(LogisticsNet.objects.count(), 1)
 
-    def test_create_without_name(self):
-        endpoint_create = '/v1/logistics/'
+    def test_create_duplicated_name(self):
+        self.client.post(self.endpoint, self.payload)
+        with self.assertRaises(IntegrityError):
+            self.client.post(self.endpoint, self.payload)
 
+    def test_create_without_name(self):
         self.payload.pop('name')
-        response = self.client.post(endpoint_create, self.payload)
+        response = self.client.post(self.endpoint, self.payload)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(LogisticsNet.objects.count(), 0)
 
     def test_create_without_path_data(self):
-        endpoint_create = '/v1/logistics/'
-
         self.payload.pop('name')
-        response = self.client.post(endpoint_create, self.payload)
+        response = self.client.post(self.endpoint, self.payload)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(LogisticsNet.objects.count(), 0)
 
@@ -71,7 +73,6 @@ class LogisticNetViewSetTestCase(APITransactionTestCase):
         endpoint_patch = f'/v1/logistics/{net.id}/'
 
         payload = {
-            'name': 'GO',
             'path_data': self.path_data
         }
         response = self.client.patch(endpoint_patch, payload)
@@ -88,9 +89,9 @@ class LogisticNetViewSetTestCase(APITransactionTestCase):
 
     def test_list(self):
         endpoint_list = '/v1/logistics/'
-        LogisticsNetFactory.create()
-        LogisticsNetFactory.create()
-        LogisticsNetFactory.create()
+        LogisticsNetFactory.create(name='Santa Catarina')
+        LogisticsNetFactory.create(name='Amazonas')
+        LogisticsNetFactory.create(name='Rio de Janeiro')
 
         response = self.client.get(endpoint_list)
         self.assertEqual(LogisticsNet.objects.count(), 3)
