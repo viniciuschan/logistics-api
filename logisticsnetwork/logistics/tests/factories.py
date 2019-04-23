@@ -1,5 +1,3 @@
-from decimal import Decimal
-from factory import SubFactory
 from factory.django import DjangoModelFactory
 
 from logistics.models import LogisticsNet

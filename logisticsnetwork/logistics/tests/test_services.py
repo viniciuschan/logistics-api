@@ -1,11 +1,9 @@
 import json
-import networkx as nx
 from decimal import Decimal
 
 from rest_framework.test import APITransactionTestCase
 
 from .factories import LogisticsNetFactory
-from logistics.models import LogisticsNet
 from logistics.services import GraphService
 
 
@@ -55,30 +53,18 @@ class GraphServiceTestCase(APITransactionTestCase):
         graph = GraphService()
         self.assertIsInstance(graph, GraphService)
 
-    def convert_dict_to_tuple(self):
-        valid_data = [
-            ('A', 'B', 10), ('A', 'C', 20), ('B', 'D', 15),
-            ('B', 'E', 50), ('C', 'D', 30), ('D', 'E', 30)
-        ]
-        converted_values = self.graph.convert_dict_to_tuple(self.path_data)
-
-        self.assertEqual(converted_values, valid_data)
-
     def test_load_graph(self):
         loaded = self.graph.load_graph_data(self.log_net.path_data)
-
         self.assertTrue(loaded)
 
     def test_get_shortest_path(self):
         self.graph.load_graph_data(self.log_net.path_data)
         shortest_path = self.graph.get_shortest_path('A', 'D')
-
         self.assertEqual(shortest_path, ['A', 'B', 'D'])
 
     def test_get_shortest_distance(self):
         self.graph.load_graph_data(self.log_net.path_data)
         distance_value = self.graph.get_shortest_distance('A', 'D')
-
         self.assertEqual(distance_value, 25)
 
     def test_calculate_price(self):
@@ -92,7 +78,6 @@ class GraphServiceTestCase(APITransactionTestCase):
             autonomy=Decimal(10),
             fuel_price=Decimal(2.5)
         )
-
         self.assertEqual(price1, Decimal(25))
         self.assertEqual(price2, Decimal(6.25))
 
@@ -117,7 +102,6 @@ class GraphServiceTestCase(APITransactionTestCase):
             best_cost1,
             {'shortest_path': ['A', 'B', 'D'], 'best_cost': Decimal('6.25')}
         )
-
         self.assertEqual(
             best_cost2,
             {'shortest_path': ['A', 'B', 'D', 'E'], 'best_cost': Decimal('11.00')}
