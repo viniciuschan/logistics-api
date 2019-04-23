@@ -17,7 +17,7 @@ class GraphService:
         try:
             valid_data = convert_dict_to_tuple(path_data)
             self.graph.add_weighted_edges_from(valid_data)
-        except:
+        except TypeError:
             raise TypeError('Invalid data type to load graph')
         return True
 
@@ -29,8 +29,8 @@ class GraphService:
         try:
             shortest_path = nx.dijkstra_path(
                 self.graph,
-                source.capitalize(),
-                destination.capitalize()
+                source.upper(),
+                destination.upper()
             )
         except:
             raise ValueError('Invalid route.')
@@ -43,8 +43,9 @@ class GraphService:
 
         try:
             distance = nx.dijkstra_path_length(
-                self.graph, source.capitalize(),
-                destination.capitalize()
+                self.graph,
+                source.upper(),
+                destination.upper()
             )
         except:
             raise ValueError('Invalid route.')

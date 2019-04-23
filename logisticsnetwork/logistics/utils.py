@@ -5,9 +5,21 @@ from numbers import Number
 # Serializers utils to validate path_data structure
 def has_valid_keys(data):
     valid_keys = set(['source', 'destination', 'distance'])
-    data_keys = set(key for item in data for key in item.keys())
-    if not data_keys.issubset(valid_keys):
-        return False
+    try:
+        data_keys = set(key for item in data for key in item.keys())
+    except AttributeError:
+        raise AttributeError('Invalid path data body')
+
+    if data_keys.issubset(valid_keys):
+        return True
+    return False
+
+
+def has_mandatory_keys(data):
+    mandatory_keys = set(['source', 'destination', 'distance'])
+    for item in data:
+        if not mandatory_keys.issubset(item.keys()):
+            return False
     return True
 
 
@@ -28,7 +40,10 @@ def has_valid_price(value):
 def convert_dict_to_tuple(path_data):
     values_to_load = []
     for value in json.loads(path_data):
-        values = (value['source'], value['destination'], value['distance'])
+        values = (
+            value['source'].upper(),
+            value['destination'].upper(),
+            value['distance']
+        )
         values_to_load.append(values)
-
     return values_to_load

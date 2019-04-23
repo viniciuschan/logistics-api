@@ -4,6 +4,7 @@ from rest_framework.test import APITransactionTestCase
 
 from logistics.utils import (
     has_valid_keys,
+    has_mandatory_keys,
     has_valid_distance,
     has_valid_price,
     convert_dict_to_tuple
@@ -57,6 +58,15 @@ class UtilsTestCase(APITransactionTestCase):
         ]
 
         self.assertFalse(has_valid_distance(invalid_data))
+
+    def test_has_mandatory_keys_true(self):
+        self.assertTrue(has_mandatory_keys(self.valid_data))
+
+    def test_has_mandatory_keys_false(self):
+        data = self.valid_data
+        data[0].pop('source')
+
+        self.assertFalse(has_mandatory_keys(data))
 
     def test_has_valid_distance_positive(self):
         self.assertTrue(has_valid_distance(self.valid_data))

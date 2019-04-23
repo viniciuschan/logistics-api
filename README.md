@@ -156,6 +156,31 @@ Response:
 }
 ```
 
+#### SEARCH MAPS
+Endpoint: **http://localhost:8000/v1/logistics/?search=sp**
+  
+Response:
+```
+[
+    {
+        "id": 1,
+        "name": "sp",
+        "path_data": [
+            {
+                "source": "A",
+                "destination": "B",
+                "distance": 10
+            },
+            {
+                "source":"B",
+                "destination":"D",
+                "distance":15
+            }
+        ]
+    }
+]
+```
+
 ## How to consult best route through Logistics Networks
 #### GET
 Endpoint: **http://localhost:8000/v1/logistics/check-best-way/?name=sp&source=A&destination=D&autonomy=10&fuel_price=2.5**
@@ -198,7 +223,7 @@ This is the continuous integration delivery tool that I have more familiar with.
 
 I strongly believe that tests were made to help us during the project development.
 
-Therefore, it is very important to make test statuses available, which also allows createing a sense of urgency for those involved in the project. If tests are not successfully integrated, software health is at risk.
+Therefore, it is very important to make test statuses available, which also allows creating a sense of urgency for those involved in the project. If tests are not successfully integrated, software health is at risk.
 
 
 
