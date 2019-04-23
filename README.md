@@ -20,7 +20,7 @@ Logistics API
 | Python3 | https://www.python.org/downloads/release/python-368/ |
 | NetworkX | https://networkx.github.io/documentation/stable/install.html |
 
-
+  
 # Getting Started
   
 I've prepared an easy way to run this project locally:
@@ -37,7 +37,7 @@ $ make run
 ```
 $ make migrate
 ```
-4. I've prepared a fixture file to load initial items for test purposes:
+4. I prepared a fixture file to load initial items for test purposes:
 ```
 $ make loaddata
 ```
@@ -159,6 +159,8 @@ Response:
 #### SEARCH MAPS
 Endpoint: **http://localhost:8000/v1/logistics/?search=sp**
   
+Lookup field: name
+  
 Response:
 ```
 [
@@ -233,8 +235,6 @@ It was my first experience with postgres and I liked it pretty much.
 
 My motivation to use this database was because I would like to try it's [JSON Type field](https://www.postgresql.org/docs/10/datatype-json.html).
 
-I gained valuable experience working on this project. It was very enriching for me. =)
-
 
 
 ### Django
@@ -273,3 +273,9 @@ I also know Asana and Jira, but Trello is my favorite, it is simple and works fi
 
 
 =============
+
+### Final considerations:
+
+I gained valuable experience working on this project. It was very enriching for me.
+
+I hope you like it! =)
