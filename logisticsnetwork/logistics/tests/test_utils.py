@@ -5,6 +5,7 @@ from rest_framework.test import APITransactionTestCase
 from logistics.utils import (
     has_valid_keys,
     has_valid_distance,
+    has_valid_price,
     convert_dict_to_tuple
 )
 
@@ -69,6 +70,16 @@ class UtilsTestCase(APITransactionTestCase):
             }
         ]
         self.assertFalse(has_valid_distance(invalid_data))
+
+    def test_has_valid_price_true(self):
+        self.assertTrue(has_valid_price(50))
+        self.assertTrue(has_valid_price(50.00))
+
+    def test_has_valid_price_false(self):
+        self.assertFalse(has_valid_price(-50.00))
+        self.assertFalse(has_valid_price(100))
+        self.assertFalse(has_valid_price('ABC'))
+        self.assertFalse(has_valid_price('1AC'))
 
     def convert_dict_to_tuple(self):
         path_data = json.dumps(

@@ -18,6 +18,12 @@ def has_valid_distance(data):
     return True
 
 
+def has_valid_price(value):
+    if isinstance(value, Number) and (0 < value < 99):
+        return True
+    return False
+
+
 # GraphService utils to convert data to Networkx expected structure
 def convert_dict_to_tuple(path_data):
     values_to_load = []
