@@ -7,7 +7,7 @@ class LogisticsNet(models.Model):
 
     name = models.CharField(
         'name', max_length=100, db_index=True, unique=True
-        )
+    )
     path_data = JSONField('path_data', blank=False, null=False)
     date_added = models.DateField('date added', auto_now_add=True)
 
