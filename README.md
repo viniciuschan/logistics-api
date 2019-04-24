@@ -27,9 +27,9 @@ I've prepared an easy way to run this project locally:
 
 1. Clone this repository:
 ```
-$ git@github.com:viniciuschan/logistics-api.git
+$ git clone git@github.com:viniciuschan/logistics-api.git
 ```
-2. In the working directory, you can enjoy a bunch of Makefile useful commands:
+2. In the correct working directory, you can enjoy a bunch of Makefile useful commands:
 ```
 $ make run
 ```
@@ -41,7 +41,7 @@ $ make migrate
 ```
 $ make loaddata
 ```
-5. Finally, you can check test cases by running the following command:
+5. Finally, you can check all test cases by running the following command:
 ```
 $ make test
 ```
@@ -185,7 +185,9 @@ Response:
 
 ## How to consult best route through Logistics Networks
 #### GET
-Endpoint: **http://localhost:8000/v1/logistics/check-best-way/?name=sp&source=A&destination=D&autonomy=10&fuel_price=2.5**
+Endpoint:
+  
+**http://localhost:8000/v1/logistics/check-best-way/?name=sp&source=A&destination=D&autonomy=10&fuel_price=2.5**
   
 Response content:
 ```
