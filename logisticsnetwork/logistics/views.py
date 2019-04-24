@@ -4,9 +4,14 @@ from rest_framework import filters
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.throttling import (
+    AnonRateThrottle, UserRateThrottle
+)
 
 from .models import LogisticsNet
-from .serializers import LogisticsNetSerializer, BestPathSerializer
+from .serializers import (
+    LogisticsNetSerializer, BestPathSerializer
+)
 from .services import GraphService
 
 
@@ -16,6 +21,7 @@ class LogisticsNetViewSet(viewsets.ModelViewSet):
     queryset = LogisticsNet.objects.all()
     serializer_class = LogisticsNetSerializer
     filter_backends = (filters.SearchFilter,)
+    throttle_classes = (AnonRateThrottle, UserRateThrottle,)
     search_fields = ('name',)
 
     def create(self, request, *args, **kwargs):
