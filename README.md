@@ -23,7 +23,7 @@ Logistics API
   
 # Getting Started
   
-I've prepared an easy way to run this project locally:
+I prepared an easy way to run this project locally:
 
 1. Clone this repository:
 ```
