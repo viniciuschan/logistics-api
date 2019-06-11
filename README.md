@@ -17,7 +17,7 @@ Logistics API
 | Docker-Compose | https://docs.docker.com/compose/ |
 | Django Rest Framework 3.9 | http://www.django-rest-framework.org |
 | Django 2.1.8 | https://docs.djangoproject.com/en/2.1/releases/2.1/ |
-| Python3 | https://www.python.org/downloads/release/python-368/ |
+| Python3.6 | https://www.python.org/downloads/release/python-365/ |
 | NetworkX | https://networkx.github.io/documentation/stable/install.html |
 
   
@@ -187,7 +187,7 @@ Response:
 #### GET
 Endpoint:
   
-**http://localhost:8000/v1/logistics/check-best-way/?name=sp&source=A&destination=D&autonomy=10&fuel_price=2.5**
+**http://localhost:8000/v1/logistics/best-path/?name=sp&source=A&destination=D&autonomy=10&fuel_price=2.5**
   
 Response content:
 ```
