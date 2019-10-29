@@ -50,8 +50,7 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
         data.update({'name': 'A'})
 
         serializer = LogisticsNetSerializer(data=data)
-        with self.assertRaises(serializers.ValidationError):
-            serializer.is_valid(raise_exception=True)
+        self.assertFalse(serializer.is_valid())
         self.assertIn('name', serializer.errors.keys())
 
     def test_invalid_name_too_many_characters(self):
@@ -62,14 +61,12 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
         data.update({'name': invalid_name})
 
         serializer = LogisticsNetSerializer(data=data)
-        with self.assertRaises(serializers.ValidationError):
-            serializer.is_valid(raise_exception=True)
+        self.assertFalse(serializer.is_valid())
         self.assertIn('name', serializer.errors.keys())
 
     def test_valid_json(self):
         serializer = LogisticsNetSerializer(data=self.payload)
-        response = serializer.is_valid(raise_exception=True)
-        self.assertTrue(response)
+        self.assertTrue(serializer.is_valid())
 
     def test_invalid_json(self):
         path_data = ['A', 'B', 'C']
@@ -83,8 +80,7 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
 
     def test_valid_path_data(self):
         serializer = LogisticsNetSerializer(data=self.payload)
-        response = serializer.is_valid(raise_exception=True)
-        self.assertTrue(response)
+        self.assertTrue(serializer.is_valid())
 
     def test_invalid_path_data_key(self):
         invalid_path_data = [
@@ -124,8 +120,7 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
             'path_data': invalid_path_data
         }
         serializer = LogisticsNetSerializer(data=data)
-        with self.assertRaises(serializers.ValidationError):
-            serializer.is_valid(raise_exception=True)
+        self.assertFalse(serializer.is_valid())
 
     def test_invalid_path_data_destination(self):
         invalid_path_data = [
@@ -145,8 +140,7 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
         }
 
         serializer = LogisticsNetSerializer(data=data)
-        with self.assertRaises(serializers.ValidationError):
-            serializer.is_valid(raise_exception=True)
+        self.assertFalse(serializer.is_valid())
 
     def test_invalid_path_data_distance(self):
         invalid_path_data = [
@@ -165,8 +159,7 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
             'path_data': invalid_path_data
         }
         serializer = LogisticsNetSerializer(data=data)
-        with self.assertRaises(serializers.ValidationError):
-            serializer.is_valid(raise_exception=True)
+        self.assertFalse(serializer.is_valid())
 
     def test_invalid_path_data_distance_negative(self):
         invalid_path_data = [
@@ -186,8 +179,7 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
             'path_data': invalid_path_data
         }
         serializer = LogisticsNetSerializer(data=data)
-        with self.assertRaises(serializers.ValidationError):
-            serializer.is_valid(raise_exception=True)
+        self.assertFalse(serializer.is_valid())
 
     def test_invalid_path_data_distance_not_a_number(self):
         invalid_path_data = [
@@ -207,8 +199,7 @@ class LogisticsNetSerializerTestCase(APITransactionTestCase):
             'path_data': invalid_path_data
         }
         serializer = LogisticsNetSerializer(data=data)
-        with self.assertRaises(serializers.ValidationError):
-            serializer.is_valid(raise_exception=True)
+        self.assertFalse(serializer.is_valid())
 
     def test_invalid_path_data_body_attributes(self):
         data = {
@@ -236,85 +227,74 @@ class BestPathSerializerTestCase(APITransactionTestCase):
 
     def test_valid_data(self):
         serializer = BestPathSerializer(data=self.payload)
-        response = serializer.is_valid(raise_exception=True)
-        self.assertTrue(response)
+        self.assertTrue(serializer.is_valid())
 
     def test_invalid_name_too_low_characters(self):
         data = self.payload
         data.update({'name': 'A'})
 
         serializer = BestPathSerializer(data=data)
-        with self.assertRaises(serializers.ValidationError):
-            serializer.is_valid(raise_exception=True)
+        self.assertFalse(serializer.is_valid())
 
     def test_invalid_name_too_many_characters(self):
         data = self.payload
         data.update({'name': self.invalid_data})
 
         serializer = BestPathSerializer(data=data)
-        with self.assertRaises(serializers.ValidationError):
-            serializer.is_valid(raise_exception=True)
+        self.assertFalse(serializer.is_valid())
 
     def test_invalid_source_too_low_characters(self):
         data = self.payload
         data.update({'source': ''})
 
         serializer = BestPathSerializer(data=data)
-        with self.assertRaises(serializers.ValidationError):
-            serializer.is_valid(raise_exception=True)
+        self.assertFalse(serializer.is_valid())
 
     def test_invalid_source_too_many_characters(self):
         data = self.payload
         data.update({'source': self.invalid_data})
 
         serializer = BestPathSerializer(data=data)
-        with self.assertRaises(serializers.ValidationError):
-            serializer.is_valid(raise_exception=True)
+        self.assertFalse(serializer.is_valid())
 
     def test_invalid_destination_too_low_characters(self):
         data = self.payload
         data.update({'destination': ''})
 
         serializer = BestPathSerializer(data=data)
-        with self.assertRaises(serializers.ValidationError):
-            serializer.is_valid(raise_exception=True)
+        self.assertFalse(serializer.is_valid())
 
     def test_invalid_destination_too_many_characters(self):
         data = self.payload
         data.update({'destination': self.invalid_data})
 
         serializer = BestPathSerializer(data=data)
-        with self.assertRaises(serializers.ValidationError):
-            serializer.is_valid(raise_exception=True)
+        self.assertFalse(serializer.is_valid())
 
     def test_invalid_autonomy_not_a_number(self):
         data = self.payload
         data.update({'autonomy': '1A'})
 
         serializer = BestPathSerializer(data=data)
-        with self.assertRaises(serializers.ValidationError):
-            serializer.is_valid(raise_exception=True)
+        self.assertFalse(serializer.is_valid())
 
     def test_invalid_autonomy_negative_number(self):
         data = self.payload
         data.update({'autonomy': -50})
 
         serializer = BestPathSerializer(data=data)
-        with self.assertRaises(serializers.ValidationError):
-            serializer.is_valid(raise_exception=True)
+        self.assertFalse(serializer.is_valid())
 
     def test_invalid_fuel_price_not_a_number(self):
         data = self.payload
         data.update({'fuel_price': 'ABC'})
 
         serializer = BestPathSerializer(data=data)
-        with self.assertRaises(serializers.ValidationError):
-            serializer.is_valid(raise_exception=True)
+        self.assertFalse(serializer.is_valid())
 
     def test_invalid_fuel_price_negative_number(self):
         data = self.payload
         data.update({'fuel_price': -50})
 
         serializer = BestPathSerializer(data=data)
-        with self.assertRaises(serializers.ValidationError):
-            serializer.is_valid(raise_exception=True)
+        self.assertFalse(serializer.is_valid())

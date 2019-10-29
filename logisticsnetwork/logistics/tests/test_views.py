@@ -4,8 +4,8 @@ from django.db import IntegrityError
 from rest_framework import status
 from rest_framework.test import APITransactionTestCase
 
-from .factories import LogisticsNetFactory
 from logistics.models import LogisticsNet
+from .factories import LogisticsNetFactory
 
 
 class LogisticNetViewSetTestCase(APITransactionTestCase):
@@ -39,9 +39,7 @@ class LogisticNetViewSetTestCase(APITransactionTestCase):
     def test_create(self):
 
         response = self.client.post(self.endpoint, self.payload)
-        self.assertEqual(
-            response.status_code, status.HTTP_201_CREATED
-        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(LogisticsNet.objects.count(), 1)
 
     def test_create_duplicated_name(self):

@@ -3,8 +3,8 @@ from decimal import Decimal
 
 from rest_framework.test import APITransactionTestCase
 
-from .factories import LogisticsNetFactory
 from logistics.services import GraphService
+from .factories import LogisticsNetFactory
 
 
 class GraphServiceTestCase(APITransactionTestCase):

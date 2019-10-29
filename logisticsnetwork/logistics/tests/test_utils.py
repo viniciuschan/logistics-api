@@ -115,5 +115,6 @@ class UtilsTestCase(APITransactionTestCase):
             ('A', 'B', 10), ('A', 'C', 20), ('B', 'D', 15),
             ('B', 'E', 50), ('C', 'D', 30), ('D', 'E', 30)
         ]
+
         converted_values = convert_dict_to_tuple(path_data)
         self.assertEqual(converted_values, valid_data)
