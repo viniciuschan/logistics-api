@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from .models import LogisticsNet
-from.utils import (
+from .utils import (
     has_valid_keys,
     has_valid_distance,
     has_mandatory_keys,
@@ -84,21 +84,21 @@ class BestPathSerializer(serializers.ModelSerializer):
     def validate_source(self, value):
         if not 1 <= len(value) <= 40:
             raise serializers.ValidationError(
-                'Invalid name, allowed between 1 and 40 characters'
+                'Invalid source name, allowed between 1 and 40 characters'
             )
         return value
 
     def validate_destination(self, value):
         if not 1 <= len(value) <= 40:
             raise serializers.ValidationError(
-                'Invalid name, allowed between 1 and 40 characters'
+                'Invalid destination name, allowed between 1 and 40 characters'
             )
         return value
 
     def validate_autonomy(self, value):
         if not has_valid_price(value):
             raise serializers.ValidationError(
-                'Invalid price, it must be a positive number'
+                'Invalid autonomy value, it must be a positive number'
             )
         return value
 
