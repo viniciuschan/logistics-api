@@ -17,11 +17,7 @@ Logistics API
 | Docker-Compose | https://docs.docker.com/compose/ |
 | Django Rest Framework 3.9 | http://www.django-rest-framework.org |
 | Django 2.1.8 | https://docs.djangoproject.com/en/2.1/releases/2.1/ |
-<<<<<<< HEAD
 | Python 3.6.8 | https://www.python.org/downloads/release/python-368/ |
-=======
-| Python3.6 | https://www.python.org/downloads/release/python-365/ |
->>>>>>> 15176b2be1e9a3ca4024ea12ae04bdb1b69bfeba
 | NetworkX | https://networkx.github.io/documentation/stable/install.html |
 
 
