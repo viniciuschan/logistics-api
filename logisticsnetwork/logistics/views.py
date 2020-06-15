@@ -80,3 +80,6 @@ class LogisticsNetViewSet(viewsets.ModelViewSet):
             fuel_price=serializer.data.get('fuel_price')
         )
         return Response(response, status=status.HTTP_200_OK)
+
+    def testing_view(self, request, *args, **kwargs):
+        pass
