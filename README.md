@@ -2,8 +2,6 @@
 [![Build Status](https://travis-ci.com/viniciuschan/logistics-api.svg?token=qNsGtqKDkkLPeR8hiGRz&branch=master)](https://travis-ci.com/viniciuschan/logistics-api)
 
 
-# API REST to solve shortest path problem (Dijkstra)
-
 Logistics API
 =============
 ##### API Rest to deal with a logistics network and it's best routes
